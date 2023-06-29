@@ -13,7 +13,7 @@ describe("Operaciones CRUD de cafes", () => {
         const total = product.length;
 
         expect(status).toBe(200);
-        expect(product).toBeInstanceOf(Object);
+        expect(product).toBeInstanceOf(Array);
         expect(total).toBeGreaterThan(0);
     })
 
@@ -33,11 +33,11 @@ describe("Operaciones CRUD de cafes", () => {
     /*3. Prueba que la ruta POST /cafes agrega un nuevo café y devuelve un código 201.*/
     it("Probando ruta POST", async () => {
         const cafe = { id: 5, nombre: "nuevo cafe" };
-        const result = await request(server)
+        const response = await request(server)
             .post("/cafes")
             .send(cafe);
-        const status = result.statusCode;
-        const cafes = result.body
+        const status = response.statusCode;
+        const cafes = response.body
 
         expect(cafes).toContainEqual(cafe);
         expect(status).toBe(201);
@@ -48,10 +48,10 @@ describe("Operaciones CRUD de cafes", () => {
     it('actualizando', async () => {
         const id = "1";
         const cafe = { id: 999, nombre: "Cortado" };
-        const result = await request(server)
+        const response = await request(server)
             .put(`/cafes/${id}`)
             .send(cafe);
-        const status = result.statusCode;
+        const status = response.statusCode;
         
         expect(status).toBe(400);
     })
